@@ -34,7 +34,7 @@
         <li><a href="#theory">Theory</a></li>
         <li><a href="#lagrange">Lagrangian Model</a></li>
         <li><a href="#euler">Eulerian Model</a></li>
-        <li><a href="#key-results">Key Results</a></li> <!-- Mise à jour du lien -->
+        <li><a href="#key-results">Key Results</a></li> <!-- Updated link -->
         <li><a href="#code">GitHub Repository</a></li>
       </ul>
       
@@ -126,11 +126,11 @@
         \]
       </div>
       <p>
-        Here, \( \mathbf{x}_p \) est la position de la goutte, \( \mathbf{v}_p \) sa vitesse, 
-        \( r_p \) son rayon, \( m_p \) sa masse, et \( T_p \) sa température. Les fonctions 
-        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) encodent la physique de 
-        la traînée, de l'évaporation et du transfert de chaleur. Numériquement, ces ODE peuvent être intégrées 
-        avec des schémas explicites ou semi-implicites (par exemple, Euler ou des intégrateurs exponentiels).
+        Here, \( \mathbf{x}_p \) is the position of the droplet, \( \mathbf{v}_p \) its velocity, 
+        \( r_p \) its radius, \( m_p \) its mass, and \( T_p \) its temperature. The functions 
+        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) encode the physics of 
+        drag, evaporation, and heat transfer. Numerically, these ODEs can be integrated 
+        using explicit or semi-implicit schemes (e.g., Euler or exponential integrators).
       </p>
       
       <p>
@@ -158,30 +158,30 @@
       </div>
       
       <div class="advantages-drawbacks">
-        <strong>Avantages :</strong>
+        <strong>Advantages:</strong>
         <ul>
-          <li>Interprétation intuitive des trajectoires des gouttes.</li>
-          <li>Bien adapté pour des populations de gouttes relativement petites ou modérées.</li>
+          <li>Intuitive interpretation of droplet trajectories.</li>
+          <li>Well-suited for relatively small or moderate populations of droplets.</li>
         </ul>
-        <strong>Inconvénients :</strong>
+        <strong>Disadvantages:</strong>
         <ul>
-          <li>Coût computationnel élevé pour de grandes populations de gouttes.</li>
-          <li>Un échantillonnage statistique peut être nécessaire pour obtenir des distributions globales.</li>
+          <li>High computational cost for large populations of droplets.</li>
+          <li>Statistical sampling may be necessary to obtain global distributions.</li>
         </ul>
       </div>
       
       <!-- Initialization Details -->
-      <h3>Initialisation et Données d'Entrée</h3>
+      <h3>Initialization and Input Data</h3>
       <p>
-        Les gouttes sont initialisées avec des paramètres spécifiques pour simuler des conditions réalistes :
+        Droplets are initialized with specific parameters to simulate realistic conditions:
       </p>
       <ul>
-        <li>Vitesse initiale : \( v_p = 0 \, \text{m/s} \)</li>
-        <li>Température initiale : \( T_p = 20^\circ \text{C} \)</li>
-        <li>À \( t = 0 \, \text{s} \), les gouttes sont placées dans l'air avec :
+        <li>Initial velocity: \( v_p = 0 \, \text{m/s} \)</li>
+        <li>Initial temperature: \( T_p = 20^\circ \text{C} \)</li>
+        <li>At \( t = 0 \, \text{s} \), droplets are placed in the air with:
           <ul>
-            <li>Vitesse du vent : \( u = 15 \, \text{m/s} \)</li>
-            <li>Température de l'air : \( T_{\text{air}} = 18^\circ \text{C} \)</li>
+            <li>Wind speed: \( u = 15 \, \text{m/s} \)</li>
+            <li>Air temperature: \( T_{\text{air}} = 18^\circ \text{C} \)</li>
           </ul>
         </li>
       </ul>
@@ -191,7 +191,7 @@
         <figure>
           <img src="images/histogram_rayons_new.png" alt="Distribution of Radius" 
                class="responsive-img" 
-               style="width: 50%; display: block; margin: 0 auto;">
+               style="width: 40%; display: block; margin: 0 auto;">
           <figcaption>Distribution of Radius</figcaption>
         </figure>
       </div>
@@ -220,7 +220,7 @@
       
       <p>
         Despite being elegant, this PDE is defined in a high-dimensional space (up to 9D if 
-        we consider \(\mathbf{x}\) et \(\mathbf{v}\) en 3D). Directly discretizing it with 
+        we consider \(\mathbf{x}\) and \(\mathbf{v}\) in 3D). Directly discretizing it with 
         finite volume methods often leads to prohibitive computational costs and stringent 
         CFL conditions, making naive Eulerian approaches impractical for long-time or 
         large-scale simulations.
@@ -228,21 +228,21 @@
       <p>
         <strong>Dimensional Reduction & QMOM</strong>:  
         To tackle the dimensional explosion, various techniques are proposed, such as 
-        assuming homogeneity in certain directions or using <em>Quadrature Method of Moments</em> (QMOM). 
+        assuming homogeneity in certain directions or using the <em>Quadrature Method of Moments</em> (QMOM). 
         In a 1-node QMOM, we track only a few moments of the distribution (e.g., total number 
         of droplets, mean velocity), drastically reducing computational overhead. However, 
         this introduces modeling assumptions about the shape of the droplet distribution.
       </p>
       <div class="advantages-drawbacks">
-        <strong>Avantages :</strong>
+        <strong>Advantages:</strong>
         <ul>
-          <li>Vue globale de la distribution des gouttes dans l'espace des phases.</li>
-          <li>Potentiellement facile à coupler avec les équations fluides.</li>
+          <li>Global view of the droplet distribution in phase space.</li>
+          <li>Potentially easy to couple with fluid equations.</li>
         </ul>
-        <strong>Inconvénients :</strong>
+        <strong>Disadvantages:</strong>
         <ul>
-          <li>Haute dimensionnalité \(\rightarrow\) grandes exigences en mémoire et en CPU.</li>
-          <li>Contraintes de stabilité (CFL) peuvent être sévères.</li>
+          <li>High dimensionality \(\rightarrow\) large memory and CPU requirements.</li>
+          <li>Stability constraints (CFL) can be severe.</li>
         </ul>
       </div>
       
@@ -258,7 +258,7 @@
       </p>
       
       <!-- Initialization Details -->
-      <h3>Initialisation et Données d'Entrée</h3>
+      <h3>Initialization and Input Data</h3>
       <p>
         The distribution function \( f \) is initialized with the following parameters:
       </p>
@@ -320,7 +320,7 @@
       <!-- Boundary Conditions and CFL -->
       <h3>Boundary Conditions and CFL Condition</h3>
       <p>
-        <strong>Boundary Conditions</strong>: Zero flux at the boundaries due to the chosen discretisation intervals for the phase space. For example, if
+        <strong>Boundary Conditions</strong>: Zero flux at the boundaries due to the chosen discretization intervals for the phase space. For example, if
         \[
         u = -1 \Rightarrow f|_{u=-1} = 0 \Rightarrow \text{flux} = 0.
         \]
@@ -331,7 +331,7 @@
         \[
             \Delta t \leq \min_{Q}\left( \frac{\Delta Q}{\max|V_Q|}\right),
         \]
-        where \( Q = v,\;r,\;m \) or \( T \) and \( V_Q = \frac{\mathcal{F}}{m},\;\mathcal{R},\; \mathcal{M} \) ou \( \mathcal{T} \).
+        where \( Q = v,\;r,\;m \) or \( T \) and \( V_Q = \frac{\mathcal{F}}{m},\;\mathcal{R},\; \mathcal{M} \) or \( \mathcal{T} \).
       </p>
       
       <!-- Initialization Equation -->
@@ -367,7 +367,7 @@
         \[
         f(t,v,r,T) = \overline{n}(t,r,T)\delta_{v-\overline{u}}
         \]
-        where \( \overline{n} = \overline{n}(t,r,T) \) et \( \overline{u} = \overline{u}(t,r,T) \) sont les inconnues du nouveau système.
+        where \( \overline{n} = \overline{n}(t,r,T) \) and \( \overline{u} = \overline{u}(t,r,T) \) are the unknowns of the new system.
       </p>
       
       <!-- System of Equations -->
@@ -393,10 +393,10 @@
             \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) + \partial_T \left( \overline{T}\overline{u} \right) = \frac{1}{\tau}(u_{\text{air}} - \overline{u}).
         \end{cases}
         \]
-        \]
+        
       </div>
       <p>
-        where \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) et \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
+        where \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) and \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
       </p>
       
       <!-- Resolution by Splitting Method -->
@@ -423,7 +423,7 @@
             \end{array}
             \right.
         \]
-    
+      
       </div>
       
       <h5>Relaxation</h5>
@@ -491,7 +491,7 @@
       
       <!-- SECTION RESULTS -->
       <section id="results" class="section">
-        <h3>Lagrangian Approch</h3>
+        <h3>Lagrangian Approach</h3>
         <p>
           The Lagrangian model was implemented using both CPU and GPU approaches to handle large-scale simulations efficiently.
         </p>
@@ -541,30 +541,18 @@
         </p>
         <div class="images-grid">
           <figure>
-            <img src="images/graph_vitesse_new.png" class="responsive-img">
-            <figcaption>Result 1: Velocity evolution over time</figcaption>
+            <img src="images/graph_vitesse_new.png" class="responsive-img" alt="Velocity Evolution Over Time">
+            <figcaption>Result 1: Velocity Evolution Over Time</figcaption>
           </figure>
           <figure>
-            <img src="images/graph_rayon_new.png" alt="Radius and mass decrease due to evaporation" class="responsive-img">
-            <figcaption>Result 2: Radius and mass decrease due to evaporation</figcaption>
+            <img src="images/graph_rayon_new.png" alt="Radius and Mass Decrease Due to Evaporation" class="responsive-img">
+            <figcaption>Result 2: Radius and Mass Decrease Due to Evaporation</figcaption>
           </figure>
           <figure>
-            <img src="images/temperature_new.png" alt="Temperature equilibration with ambient air" class="responsive-img">
-            <figcaption>Result 3: Temperature equilibration with ambient air</figcaption>
+            <img src="images/temperature_new.png" alt="Temperature Equilibration with Ambient Air" class="responsive-img">
+            <figcaption>Result 3: Temperature Equilibration with Ambient Air</figcaption>
           </figure>
         </div>
-        
-        <!-- Additional Results Images
-        <div class="images-grid">
-          <figure>
-            <img src="images/graph_vitesse_spray_new.png" alt="Averaged Velocity as a Function of Time" class="responsive-img">
-            <figcaption>Averaged Velocity as a Function of Time</figcaption>
-          </figure>
-          <figure>
-            <img src="images/temperature_spray_new.png" alt="Averaged Temperature as a Function of Time" class="responsive-img">
-            <figcaption>Averaged Temperature as a Function of Time</figcaption>
-          </figure>
-        </div> -->
         
         <!-- Relative Humidity Equation -->
         <h3>Relative Humidity Evolution</h3>
@@ -583,21 +571,21 @@
       </section>
 
       <h3>Analytic Results from Reference [1]</h3>
-<div class="images-grid">
-  <figure>
-    <img src="images/temp_analy.png" alt="Analytic Temperature Analysis" class="responsive-img">
-    <figcaption>Temperature Analysis (Ref. [1])</figcaption>
-  </figure>
-  <figure>
-    <img src="images/vitesse_analy.png" alt="Analytic Velocity Analysis" class="responsive-img">
-    <figcaption>Velocity Analysis (Ref. [1])</figcaption>
-  </figure>
-  <figure>
-    <img src="images/humid_analy.png" alt="Analytic Humidity Analysis" class="responsive-img">
-    <figcaption>Humidity Analysis (Ref. [1])</figcaption>
-  </figure>
-</div>
-    
+      <div class="images-grid">
+        <figure>
+          <img src="images/temp_analy.png" alt="Analytic Temperature Analysis" class="responsive-img">
+          <figcaption>Temperature Analysis (Ref. [1])</figcaption>
+        </figure>
+        <figure>
+          <img src="images/vitesse_analy.png" alt="Analytic Velocity Analysis" class="responsive-img">
+          <figcaption>Velocity Analysis (Ref. [1])</figcaption>
+        </figure>
+        <figure>
+          <img src="images/humid_analy.png" alt="Analytic Humidity Analysis" class="responsive-img">
+          <figcaption>Humidity Analysis (Ref. [1])</figcaption>
+        </figure>
+      </div>
+          
       <!-- QMOM Numerical Results -->
       <section id="qmom-results" class="section">
         <h3>QMOM Numerical Results</h3>
@@ -619,7 +607,7 @@
     </section>
 
     <section id="references" class="section">
-      <h2>Références</h2>
+      <h2>References</h2>
       <ol>
         <li id="ref-veron2020">
           Veron, F., & Mieussens, L. (2020). An Eulerian model for sea spray transport and evaporation. <em>Journal of Fluid Mechanics</em>, 897, A6. Cambridge University Press.
@@ -657,7 +645,7 @@
   <footer class="footer">
     <div class="container footer-content">
       <p>&copy; 2024 Fluid Mechanics Research | Designed for academic purposes</p>
-      <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr" target="_blank">
+      <a href="https://enseirb-matmeca.bordeaux-inp.fr/en" target="_blank">
         School Website
       </a>
     </div>
