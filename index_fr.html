@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Projet de recherche sur le transport et l'évaporation des embruns marins utilisant des modèles de mécanique des fluides. Approches lagrangienne et eulérienne pour les prévisions climatiques et cycloniques."/>
+  <meta name="description" content="Projet de recherche sur le transport et l'évaporation des embruns marins utilisant des modèles de mécanique des fluides. Approches Lagrangienne et Eulerienne pour les prévisions climatiques et cycloniques."/>
   
   <title>Recherche en Mécanique des Fluides</title>
   
   <!-- Lien vers la feuille de style personnalisée -->
   <link rel="stylesheet" href="styles.css" />
   
-  <!-- Polyfill et MathJax pour équations LaTeX -->
+  <!-- Polyfill et MathJax pour les équations LaTeX -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -18,11 +18,11 @@
 </head>
 
 <body>
-  <!-- HEADER -->
+  <!-- EN-TÊTE -->
   <header class="header">
     <div class="container">
       <h1>Exploration des Méthodes Numériques pour le Transport et l'Évaporation des Embruns Marins</h1>
-      <p>Travail de Mathématiques Appliquées et de Simulation Numérique pour un projet de master de 2ème année</p>
+      <p>Travail de Mathématiques Appliquées et Simulation Numérique pour un projet de master de 2ème année</p>
     </div>
   </header>
   
@@ -31,10 +31,10 @@
     <div class="container navbar-content">
       <ul class="nav-links">
         <li><a href="#context">Contexte</a></li>
-        <li><a href="#theory">Cadre Théorique</a></li>
+        <li><a href="#theory">Théorie</a></li>
         <li><a href="#lagrange">Modèle Lagrangien</a></li>
-        <li><a href="#euler">Modèle Eulérien</a></li>
-        <li><a href="#results">Résultats Clés</a></li>
+        <li><a href="#euler">Modèle Eulerien</a></li>
+        <li><a href="#key-results">Résultats Clés</a></li> <!-- Lien mis à jour -->
         <li><a href="#code">Dépôt GitHub</a></li>
       </ul>
       
@@ -42,8 +42,8 @@
         <img class="logo_lang" src="images/global.png" alt="Sélecteur de Langue" height="20" width="20"/>
         <button class="lang-button">FR</button>
         <div class="dropdown-content">
-          <a href="index.html">Anglais</a>
           <a href="index_fr.html">Français</a>
+          <a href="index.html">Anglais</a>
         </div>
       </div>
     </div>
@@ -56,34 +56,27 @@
     <section id="context" class="section">
       <h2>Contexte</h2>
       <p>
-        Le climat à long terme et les événements météorologiques extrêmes, tels que les cyclones tropicaux, sont largement étudiés 
-        pour des prévisions plus précises. Dans ce contexte, estimer le comportement des embruns marins 
-        (gouttelettes salines éjectées de la surface de l'océan) s'est avéré crucial. Ces dernières années, 
-        il est devenu évident que ces estimations doivent inclure une représentation précise du 
-        transport des embruns dans la couche limite atmosphérique, ainsi que les flux induits par les gouttelettes 
-        de quantité de mouvement, de chaleur et d'humidité. Ces facteurs jouent un rôle significatif dans 
-        la détermination de l'évolution globale de l'écoulement atmosphérique et, par conséquent, de l'intensité 
-        et de la trajectoire cycloniques.
+        Les changements climatiques à long terme et les événements météorologiques extrêmes, tels que les cyclones tropicaux, sont largement étudiés pour des prévisions plus précises. Dans ce contexte, estimer le comportement des embruns marins (gouttelettes salines éjectées de la surface océanique) s'est avéré crucial. Ces dernières années, il est devenu évident que ces estimations doivent inclure une représentation précise du transport des embruns marins au sein de la couche limite atmosphérique, ainsi que les flux induits par les gouttelettes de quantité de mouvement, de chaleur et d'humidité. Ces facteurs jouent un rôle significatif dans la détermination de l'évolution globale de l'écoulement atmosphérique et, par conséquent, de l'intensité et de la trajectoire cycloniques.
       </p>
       <p>
         Basé sur l'article de <strong>Fabrice Veron</strong> et <strong>Luc Mieussens</strong> 
         <a href="https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/an-eulerian-model-for-sea-spray-transport-and-evaporation/625CC4F0880F43189F746387EA43E770"
            target="_blank" 
            class="link">
-          <em>Un modèle eulérien pour le transport et l'évaporation des embruns marins</em>
+          <em>Un modèle Eulerien pour le transport et l'évaporation des embruns marins</em>
         </a>, 
-        nous avons étudié numériquement deux principales approches de modélisation des embruns : le 
-        <a href="#lagrange" class="link_section">modèle lagrangien</a> (suivi des gouttelettes individuelles) et le <a href="#euler" class="link_section">modèle eulérien</a> (utilisation d'une fonction de distribution dans l'espace des phases). Ci-dessous, nous détaillons ces deux approches et comparons 
-        certains résultats clés.
+        nous avons étudié numériquement deux principales approches de modélisation des embruns marins : le 
+        <a href="#lagrange" class="link_section">modèle Lagrangien</a> (suivi des gouttelettes individuelles) et le 
+        <a href="#euler" class="link_section">modèle Eulerien</a> (utilisation d'une fonction de distribution dans l'espace des phases). Ci-dessous, nous détaillons ces deux approches et comparons certains résultats clés.
       </p>
     </section>
     
-    <!-- SECTION CADRE THÉORIQUE -->
+    <!-- SECTION THÉORIE -->
     <section id="theory" class="section">
-      <h2>Cadre Théorique</h2>
+      <h2>Fondements Théoriques</h2>
       <p>
         Une grande partie de notre travail repose sur les principes fondamentaux de la mécanique des fluides et de la thermodynamique. 
-        Les équations de Navier-Stokes pour un écoulement incompressible servent de base macroscopique :
+        Les équations de Navier-Stokes pour un écoulement incompressible servent de fondation macroscopique :
       </p>
       <div class="equation">
         \[
@@ -96,18 +89,18 @@
       <p>
         Ici, \( \mathbf{u} \) est le champ de vitesse de l'air (ou d'un fluide porteur), 
         \( p \) est la pression, et \( \nu \) est la viscosité cinématique. De plus, 
-        les relations thermodynamiques régissent l'évaporation des gouttelettes, le refroidissement/échauffement, et le transfert de masse à la surface de la gouttelette. L'accent est mis sur le couplage de ces équations fluides 
-        avec la dynamique des gouttelettes, soit en traçant les gouttelettes individuellement (Lagrangien) soit 
-        en les décrivant dans une distribution continue (Eulérien).
+        les relations thermodynamiques régissent l'évaporation des gouttelettes, le refroidissement/chauffage, et le transfert de masse à la surface des gouttelettes. L'accent est mis sur le couplage de ces équations fluides 
+        avec la dynamique des gouttelettes, soit en suivant les gouttelettes individuellement (Lagrangien) ou 
+        en les décrivant par une distribution continue (Eulerien).
       </p>
     </section>
     
-    <!-- SECTION MODÈLE LAGRANGIEN -->
+    <!-- SECTION LAGRANGIEN -->
     <section id="lagrange" class="section">
       <h2>Modèle Lagrangien</h2>
       <p>
-        Dans l'approche lagrangienne, chaque gouttelette est traitée comme une particule dont le mouvement 
-        et l'état (position, vitesse, rayon, masse et température) sont régis par 
+        Dans l'approche Lagrangienne, chaque gouttelette est traitée comme une particule dont 
+        le mouvement et l'état (position, vitesse, rayon, masse et température) sont régis par 
         un ensemble d'Équations Différentielles Ordinaires (EDO). Pour une gouttelette unique \( p \) :
       </p>
       <div class="equation">
@@ -124,33 +117,84 @@
       <p>
         Ici, \( \mathbf{x}_p \) est la position de la gouttelette, \( \mathbf{v}_p \) sa vitesse, 
         \( r_p \) son rayon, \( m_p \) sa masse, et \( T_p \) sa température. Les fonctions 
-        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) codifient la physique de 
+        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) encodent la physique de 
         la traînée, de l'évaporation et du transfert de chaleur. Numériquement, ces EDO peuvent être intégrées 
-        avec des schémas explicites ou semi-implicites (par exemple, Euler ou intégrateurs exponentiels).
+        avec des schémas explicites ou semi-implicites (par exemple, Euler ou des intégrateurs exponentiels).
       </p>
+      
       <p>
-        <strong>Avantages</strong> :
+        Par exemple, l'équation régissant le taux de changement de la masse de la gouttelette \( m_p(t) \) due à l'évaporation 
+        implique plusieurs propriétés thermodynamiques et fluides interconnectées. Cette équation illustre la complexité de 
+        la modélisation précise de la dynamique des gouttelettes :
+      </p>
+      
+      <div class="equation">
+        \[
+        \frac{dm_p(t)}{dt} = 
+        \frac{4 \pi r_p D_v^* M_w p_v^{\text{sat}}(T_{\text{air}})}{R T_{\text{air}}}
+        \times 
+        \left[
+          Q_{RH} - \frac{T_{\text{air}}}{T_p} 
+          \exp \left(
+            \frac{L_v M_w}{R} 
+            \left( \frac{1}{T_{\text{air}}} - \frac{1}{T_p} \right)
+          \right)
+          + \frac{2 M_w \Gamma_p}{R \rho_w r_p T_p}
+          - \frac{I \Phi_s m_s (M_w / M_s)}{m_p - m_s}
+        \right]
+        = \mathcal{M}(t).
+        \]
+      </div>
+      
+      <div class="advantages-drawbacks">
+        <strong>Avantages :</strong>
         <ul>
           <li>Interprétation intuitive des trajectoires des gouttelettes.</li>
-          <li>Bien adapté pour un nombre relativement petit ou modéré de gouttelettes.</li>
+          <li>Bien adapté pour des populations de gouttelettes relativement petites ou modérées.</li>
         </ul>
-        <strong>Inconvénients</strong> :
+        <strong>Inconvénients :</strong>
         <ul>
-          <li>Coûteux en termes de calcul pour de grandes populations de gouttelettes.</li>
+          <li>Coût computationnel élevé pour de grandes populations de gouttelettes.</li>
           <li>Un échantillonnage statistique peut être nécessaire pour obtenir des distributions globales.</li>
         </ul>
-      </p>
-    </section>
-    
-    <!-- SECTION MODÈLE EULÉRIEN -->
-    <section id="euler" class="section">
-      <h2>Modèle Eulérien</h2>
+      </div>
+      
+      <!-- Détails d'Initialisation -->
+      <h3>Initialisation et Données d'Entrée</h3>
       <p>
-        En revanche, l'approche eulérienne décrit les gouttelettes via une fonction de distribution 
+        Les gouttelettes sont initialisées avec des paramètres spécifiques pour simuler des conditions réalistes :
+      </p>
+      <ul>
+        <li>Vitesse initiale : \( v_p = 0 \, \text{m/s} \)</li>
+        <li>Température initiale : \( T_p = 20^\circ \text{C} \)</li>
+        <li>À \( t = 0 \, \text{s} \), les gouttelettes sont placées dans l'air avec :
+          <ul>
+            <li>Vitesse du vent : \( u = 15 \, \text{m/s} \)</li>
+            <li>Température de l'air : \( T_{\text{air}} = 18^\circ \text{C} \)</li>
+          </ul>
+        </li>
+      </ul>
+      
+      <!-- Image de Distribution -->
+      <div class="images-grid text-center">
+        <figure>
+          <img src="images/histogram_rayons_new.png" alt="Distribution des Rayons" 
+               class="responsive-img" 
+               style="width: 50%; display: block; margin: 0 auto;">
+          <figcaption>Distribution des Rayons</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SECTION EULERIEN -->
+    <section id="euler" class="section">
+      <h2>Modèle Eulerien</h2>
+      <p>
+        En revanche, l'approche Eulerienne décrit les gouttelettes via une fonction de distribution 
         \( f(t,\mathbf{x},\mathbf{v},r,m,T) \), qui représente la densité de nombre de gouttelettes 
         par volume infinitésimal dans l'<em>espace des phases</em> 
-        \((\mathbf{x}, \mathbf{v}, r, m, T)\). L'équation gouvernante est une équation de transport 
-        semblable à une loi de conservation de type Boltzmann :
+        \((\mathbf{x}, \mathbf{v}, r, m, T)\). L'équation régissant est une équation de transport 
+        rappelant une loi de conservation de type Boltzmann :
       </p>
       <div class="equation">
         \[
@@ -162,85 +206,430 @@
         + \frac{\partial}{\partial T} (\mathcal{T} f) = 0.
         \]
       </div>
+      
       <p>
-        Malgré son élégance, cette EDP est définie dans un espace de haute dimension (jusqu'à 9D si 
+        Malgré son élégance, cette EDP est définie dans un espace à haute dimension (jusqu'à 9D si 
         nous considérons \(\mathbf{x}\) et \(\mathbf{v}\) en 3D). La discrétisation directe avec 
-        des méthodes de volumes finis conduit souvent à des coûts de calcul prohibitifs et des conditions 
-        CFL strictes, rendant les approches eulériennes naïves impraticables pour des simulations à long terme ou 
-        à grande échelle.
+        des méthodes de volumes finis conduit souvent à des coûts computationnels prohibitifs et à des 
+        conditions CFL strictes, rendant les approches Euleriennes naïves impraticables pour des simulations 
+        à long terme ou à grande échelle.
       </p>
       <p>
         <strong>Réduction Dimensionnelle & QMOM</strong> :  
         Pour faire face à l'explosion dimensionnelle, diverses techniques sont proposées, telles que 
         supposer l'homogénéité dans certaines directions ou utiliser la <em>Méthode de Quadrature des Moments</em> (QMOM). 
-        Dans un QMOM à 1 nœud, nous ne suivons que quelques moments de la distribution (par exemple, le nombre total 
-        de gouttelettes, la vitesse moyenne), réduisant ainsi considérablement la charge de calcul. Cependant, 
+        Dans un QMOM à un nœud, nous suivons seulement quelques moments de la distribution (par exemple, le nombre total 
+        de gouttelettes, la vitesse moyenne), réduisant drastiquement la surcharge computationnelle. Cependant, 
         cela introduit des hypothèses de modélisation sur la forme de la distribution des gouttelettes.
       </p>
-      <p>
-        <strong>Avantages</strong> :
+      <div class="advantages-drawbacks">
+        <strong>Avantages :</strong>
         <ul>
           <li>Vue globale de la distribution des gouttelettes dans l'espace des phases.</li>
-          <li>Possibilité de couplage relativement simple avec les équations fluides.</li>
+          <li>Potentiellement facile à coupler avec les équations fluides.</li>
         </ul>
-        <strong>Inconvénients</strong> :
+        <strong>Inconvénients :</strong>
         <ul>
-          <li>Haute dimensionalité \(\rightarrow\) grandes exigences en mémoire et en CPU.</li>
+          <li>Haute dimensionnalité \(\rightarrow\) grandes exigences en mémoire et en CPU.</li>
           <li>Contraintes de stabilité (CFL) peuvent être sévères.</li>
         </ul>
-      </p>
-    </section>
-    
-    <!-- SECTION RÉSULTATS -->
-    <section id="results" class="section">
-      <h2>Résultats Clés</h2>
+      </div>
+      
+      <!-- Équations pour le Modèle Eulerien -->
+      <h3>Équations Régissant</h3>
+      <div class="equation">
+        \[
+        \frac{\partial }{\partial t}f + \frac{\partial}{\partial u} \left(\frac{\mathcal{F}}{m}f\right) + \frac{\partial }{\partial r}\left(\mathcal{R}f\right) + \frac{\partial }{\partial m}\left(\mathcal{M}f\right) + \frac{\partial }{\partial T}(\mathcal{T}f) = 0.
+        \]
+      </div>
       <p>
-        Dans nos tests numériques, le modèle lagrangien confirme que les gouttelettes accélèrent 
-        vers la vitesse du vent, tandis que leur rayon et leur masse diminuent en raison de l'évaporation. 
-        Nous observons également que les températures des gouttelettes s'ajustent à la température de l'air ambiant au fil du temps, 
-        influençant les taux de transfert de chaleur et d'humidité. Ces comportements affectent collectivement l'humidité 
-        relative dans l'écoulement local.
+        Où \( \mathcal{F} \), \( \mathcal{R} \), \( \mathcal{M} \), et \( \mathcal{T} \) ont été introduites dans l'ensemble des équations Lagrangiennes, ressemblant à l'équation William-Boltzmann (WB).
       </p>
+      
+      <!-- Détails d'Initialisation -->
+      <h3>Initialisation et Données d'Entrée</h3>
       <p>
-        Ci-dessous, quelques résultats visuels illustrant l'évaporation des gouttelettes, l'ajustement de la vitesse, 
-        et l'évolution de la température au fil du temps :
+        La fonction de distribution \( f \) est initialisée avec les paramètres suivants :
       </p>
+      <ul>
+        <li>Distribution initiale : \( f(0,u,r,m,T) = \delta_{u-0} N(r) \delta_{m-m_{\text{sw}}(r)} \delta_{T-T_{\text{sw}}} \)</li>
+        <li>Valeurs maximales :
+          <ul>
+            <li>Vitesse : \( u_{\text{max}} = 16 \, \text{m/s} \)</li>
+            <li>Rayon : \( r_{\text{max}} = 10^{-2} \, \text{m} \)</li>
+            <li>Masse : \( m_{\text{max}} = m(r_{\text{max}}) \)</li>
+            <li>Température : \( T_{\text{max}} = 21^\circ \text{C} \)</li>
+          </ul>
+        </li>
+      </ul>
+      
+      <!-- Images de Distribution -->
       <div class="images-grid">
         <figure>
-          <img src="images/graph_vitesse_new.png" alt="Résultat de simulation 1">
-          <figcaption>Résultat 1 : Évolution de la vitesse au fil du temps</figcaption>
+          <img src="images/log.png" alt="Distribution du Maillage Logarithmique" class="responsive-img">
+          <figcaption>Distribution du Maillage Logarithmique</figcaption>
         </figure>
         <figure>
-          <img src="images/graph_rayon_new.png" alt="Résultat de simulation 2">
-          <figcaption>Résultat 2 : Diminution du rayon et de la masse due à l'évaporation</figcaption>
-        </figure>
-        <figure>
-          <img src="images/temperature_new.png" alt="Résultat de simulation 3">
-          <figcaption>Résultat 3 : Équilibrage de la température avec l'air ambiant</figcaption>
+          <img src="images/regulier.png" alt="Distribution du Maillage Régulier" class="responsive-img">
+          <figcaption>Distribution du Maillage Régulier</figcaption>
         </figure>
       </div>
+      
+      <!-- Équations pour la Méthode des Volumes Finis -->
+      <h3>Équations de la Méthode des Volumes Finis</h3>
+      <div class="equation">
+        \[
+        \frac{f_{i,j,k,l}^{n+1} - f_{i,j,k,l}^{n}}{\Delta t} + \frac{\phi_{i+\frac{1}{2},j,k,l}^n - \phi_{i-\frac{1}{2},j,k,l}^n}{\Delta u} + \frac{\Phi_{i,j+\frac{1}{2},k,l}^n - \Phi_{i,j-\frac{1}{2},k,l}^n}{\Delta r_{j+\frac{1}{2}}} \\
+        + \frac{\varphi_{i,j,k+\frac{1}{2},l}^n - \varphi_{i,j,k-\frac{1}{2},l}^n}{\Delta m_{k+\frac{1}{2}}} + \frac{\varPhi_{i,j,k,l+\frac{1}{2}}^n - \varPhi_{i,j,k,l-\frac{1}{2}}^n}{\Delta T} = 0.
+        \]
+      </div>
+      <p>
+        Où :
+      </p>
+      <div class="equation">
+        \[
+        \phi_{i+\frac{1}{2},j,k,l}^n = \left(\frac{\mathcal{F}}{m}\right)^+\left(u_{i+\frac{1}{2}}, r_j, m_k, T_l\right)f_{i,j,k,l}^n + \left(\frac{\mathcal{F}}{m}\right)^-\left(u_{i+\frac{1}{2}}, r_j, m_k, T_l\right)f_{i+1,j,k,l}^n,
+        \]
+        \[
+        \Phi_{i,j+\frac{1}{2},k,l}^n = \mathcal{R}^+\left(u_i, r_{j+\frac{1}{2}}, m_k, T_l\right)f_{i,j,k,l}^n + \mathcal{R}^-\left(u_i, r_{j+\frac{1}{2}}, m_k, T_l\right)f_{i,j+1,k,l}^n,
+        \]
+        \[
+        \varphi_{i,j,k+\frac{1}{2},l}^n = \mathcal{M}^+\left(u_i, r_j, m_{k+\frac{1}{2}}, T_l\right)f_{i,j,k,l}^n + \mathcal{M}^-\left(u_i, r_j, m_{k-\frac{1}{2}}, T_l\right)f_{i,j,k+1,l}^n,
+        \]
+        \[
+        \varPhi_{i,j,k,l+\frac{1}{2}}^n = \mathcal{T}^+\left(u_i, r_j, m_k, T_{l+\frac{1}{2}}\right)f_{i,j,k,l}^n + \mathcal{T}^-\left(u_i, r_j, m_k, T_{l-\frac{1}{2}}\right)f_{i,j,k,l+1}^n.
+        \]
+      </div>
+      <div class="equation">
+        \[
+        a^+ = \frac{a + |a|}{2}, \quad a^- = \frac{a - |a|}{2}.
+        \]
+      </div>
+      
+      <!-- Conditions aux Limites et Condition CFL -->
+      <h3>Conditions aux Limites et Condition CFL</h3>
+      <p>
+        <strong>Conditions aux Limites</strong> : Flux nul aux limites en raison des intervalles de discrétisation choisis pour l'espace des phases. Par exemple, si
+        \[
+        u = -1 \Rightarrow f|_{u=-1} = 0 \Rightarrow \text{flux} = 0.
+        \]
+        Le même raisonnement s'applique aux autres limites.
+      </p>
+      <p>
+        <strong>Condition CFL (Stabilité)</strong> : Pour obtenir la condition CFL, la condition associée à chaque direction est calculée, et la plus restrictive est choisie :
+        \[
+            \Delta t \leq \min_{Q}\left( \frac{\Delta Q}{\max|V_Q|}\right),
+        \]
+        où \( Q = v,\;r,\;m \) ou \( T \) et \( V_Q = \frac{\mathcal{F}}{m},\;\mathcal{R},\; \mathcal{M} \) ou \( \mathcal{T} \).
+      </p>
+      
+      <!-- Équation d'Initialisation -->
+      <h3>Initialisation</h3>
+      <div class="equation">
+        \[
+            f(0,u,r,m,T) = \delta_{u-0} N(r) \delta_{m-m_{\text{sw}}(r)} \delta_{T-T_{\text{sw}}}.
+        \]
+      </div>
+      <p>
+        où \( N(r) \) est la concentration des embruns.
+      </p>
+      
+      <!-- Sous-section Stratégie QMOM -->
+      <h3>Stratégie QMOM</h3>
+      <p>
+        Pour faire face à la haute dimensionnalité, nous avons implémenté la Méthode de Quadrature des Moments (QMOM). Cette méthode réduit la surcharge computationnelle en suivant un nombre limité de moments de la fonction de distribution.
+      </p>
+      
+      <!-- Équations QMOM -->
+      <h4>Équations Régissant le QMOM</h4>
+      <div class="equation">
+        \[
+            \frac{\partial }{\partial t}f + \frac{\partial}{\partial u} \left(\frac{\mathcal{F}}{m}f\right) + \frac{\partial }{\partial r}\left(\mathcal{R}f\right) + \frac{\partial }{\partial T}(\mathcal{T}f) = 0
+            \label{eq:first_QMOM}
+        \]
+      </div>
+      <p>
+        où \( m = m(r) \).
+      </p>
+      <p>
+        Nous avons recherché une solution sous la forme : 
+        \[
+        f(t,v,r,T) = \overline{n}(t,r,T)\delta_{v-\overline{u}}
+        \]
+        où \( \overline{n} = \overline{n}(t,r,T) \) et \( \overline{u} = \overline{u}(t,r,T) \) sont les inconnues du nouveau système.
+      </p>
+      
+      <!-- Système d'Équations -->
+      <h4>Système d'Équations</h4>
+      <div class="equation">
+        \[
+        \begin{array}{c @{=} c}
+        \underline{\text{$0^{e}$ ordre : }} \int_{\mathbb{R}}f(t,v,r,T)dv  =  \overline{n}(t,r,T)\cancelto{=1}{\int_{\mathbb{R}}\delta_{v-\overline{u}}}dv \\
+        \underline{\text{$1^{er}$ ordre ($v$) : }} \int_{\mathbb{R}}vf(t,v,r,T)dv =  \overline{n}(t,r,T)\cancelto{=\overline{u}(t,r,T)}{\int_{\mathbb{R}}v\delta_{v-\overline{u}}}dv \\
+        \underline{\text{$1^{er}$ ordre ($T$) : }} \int_{\mathbb{R}}Tf(t,v,r,T)dv = \overline{n}(t,r,T)\cancelto{=\overline{\Theta}(t,r,T)}{\int_{\mathbb{R}}T\delta_{v-\overline{u}}}dv
+        \end{array}
+        \]
+      </div>
+       
+
+      <p>
+        L'intégration avec des moments d'ordre 0 et 1 a donné le système suivant :
+      </p>
+      <div class="equation">
+        \[
+        \begin{cases}
+            \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) + \partial_T \left( \overline{T}\overline{n} \right) = 0, \\
+            \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) + \partial_T \left( \overline{T}\overline{u} \right) = \frac{1}{\tau}(u_{\text{air}} - \overline{u}).
+        \end{cases}
+        \]
+        \]
+      </div>
+      <p>
+        où \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) et \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
+      </p>
+      
+      <!-- Résolution par Méthode de Fractionnement -->
+      <h4>Résolution par Méthode de Fractionnement</h4>
+      <p>
+        Le système est résolu en utilisant une méthode de fractionnement, traitant séparément le transport et la relaxation :
+      </p>
+      
+      <h5>Transport sur \( r \) et \( T \)</h5>
+      <div class="equation">
+        \[
+        \left \{
+            \begin{array}{c @{ = } c}
+                 \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) = 0 ~~~~~\longrightarrow \overline{n}^{*}  \\
+                 \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) = 0 ~~~~~\longrightarrow \overline{u}^{*}
+            \end{array}
+            \right.
+        \]
+        \[
+        \left \{
+            \begin{array}{c @{ = } c}
+                 \partial_t \overline{n}^{*} + \partial_T \left( \overline{T}\overline{n}^{*} \right) = 0 ~~~~~\longrightarrow \overline{n}^{**}  \\
+                 \partial_t \overline{u}^{*} + \partial_T \left( \overline{T}\overline{u}^{*} \right) = 0 ~~~~~\longrightarrow \overline{u}^{**}
+            \end{array}
+            \right.
+        \]
+      
+      </div>
+      
+      <h5>Relaxation</h5>
+      <div class="equation">
+        \[
+        \left \{
+            \begin{array}{c @{ = } l}
+                 \partial_t \overline{n}^{**} = 0  \\
+                 \partial_t \overline{u}^{**} = \frac{1}{\tau}(u_{\text{air}} - \overline{u})
+            \end{array}
+            \right.
+        \]
+        
+      </div>
+      
+      <!-- Schéma Numérique QMOM -->
+      <h5>Schéma Numérique</h5>
+      <p>
+        Le système QMOM est résolu en utilisant un schéma upwind pour les directions de transport et une gestion explicite des termes sources :
+      </p>
+      
+      <h6>Schéma Upwind sur \( r \)</h6>
+      <div class="equation">
+        \[
+        \left \{
+            \begin{array}{c @{ = } c}
+                 \overline{n}_i^{*} = \overline{n}_i^n - \frac{\Delta t}{\Delta r_i} \left( \Phi_{i+\frac{1}{2}}^n - \Phi_{i-\frac{1}{2}}^n \right), \\
+                 \Phi_{i+\frac{1}{2}}^n = \left( \overline{R}_{i+\frac{1}{2}}^n \right)^+\overline{n}_i^n + \left( \overline{R}_{i+\frac{1}{2}}^n \right)^-\overline{n}_{i+1}^n
+            \end{array}
+            \right.
+        \]
+        
+      </div>
+      
+      <h6>Schéma Upwind sur \( T \)</h6>
+      <div class="equation">
+        \[
+        \left \{
+            \begin{array}{c @{ = } c}
+                 \overline{n}_j^{**} = \overline{n}_j^{*} - \frac{\Delta t}{\Delta T_j} \left( \Phi_{j+\frac{1}{2}}^* - \Phi_{j-\frac{1}{2}}^* \right), \\
+                 \Phi_{j+\frac{1}{2}}^* = \left( \overline{T}_{j+\frac{1}{2}}^n \right)^+\overline{n}_j^{*} + \left( \overline{T}_{j+\frac{1}{2}}^n \right)^-\overline{n}_{j+1}^{*}
+            \end{array}
+            \right.
+        \]
+        
+      </div>
+      
+      <h6>Résolution des Termes Sources</h6>
+      <div class="equation">
+        \[
+        \left \{
+            \begin{array}{c @{ = } l}
+                 \overline{n}_{ij}^{n+1} = \overline{n}_{ij}^{**}, \\
+                 \overline{u}_{ij}^{n+1} = \left( 1 - e^{-\frac{\Delta t}{\tau}} \right)u_{\text{air}} + e^{-\frac{\Delta t}{\tau}}\overline{u}_{ij}^{**}
+            \end{array}
+            \right.
+        \]
+        
+      </div>
+    </section>
+    
+    <!-- SECTION RÉSULTATS CLÉS -->
+    <section id="key-results" class="section">
+      <h2>Résultats Clés</h2>
+      
+      <!-- SECTION RÉSULTATS -->
+      <section id="results" class="section">
+        <h3>Approche Lagrangienne</h3>
+        <p>
+          Le modèle Lagrangien a été implémenté en utilisant à la fois des approches CPU et GPU pour gérer efficacement les simulations à grande échelle.
+        </p>
+        
+        <!-- Détails de l'Implémentation Parallèle -->
+        <h3>Implémentation Parallèle de la Simulation des Embruns à Grande Échelle</h3>
+        <div class="equation">
+          \[
+          \begin{cases}
+              \text{Volume total de simulation : } 1 \, \text{m}^3, \\
+              \text{Environ } 10^6 \text{ gouttelettes réparties sur } N_p \text{ processeurs}, \\
+              \text{Initialisation basée sur la masse : } M_{\text{tot}} = \rho_0 L^3, \\
+              \text{Chaque processus génère des gouttelettes jusqu'à : } M_n \geq M_{\text{tot}}.
+          \end{cases}
+          \]
+        </div>
+        
+        <!-- Méthode de Génération des Gouttelettes -->
+        <h3>Méthode de Génération des Gouttelettes</h3>
+        <p>
+          Les gouttelettes ont été générées en utilisant la méthode d'acceptation-rejet pour la distribution des rayons dans la plage de tailles :
+          \[
+          [10^{-6}, 10^{-3}] \, \text{m}
+          \]
+        </p>
+        
+        <!-- Schéma de Communication MPI -->
+        <h3>Schéma de Communication MPI</h3>
+        <p>
+          Les propriétés globales ont été synchronisées en utilisant <code>MPI_Allreduce</code> :
+          \[
+              M_n = \sum_{i=1}^{N_p} m_{p,i}, \quad U_n = \sum_{i=1}^{N_p} (m_p v_p)_i, \quad T_n = \sum_{i=1}^{N_p} (m_p T_p)_i.
+          \]
+        </p>
+    
+        <h3>Méthode Lagrangienne</h3>
+        <p>
+          Dans nos tests numériques, le modèle Lagrangien confirme que les gouttelettes accélèrent 
+          vers la vitesse du vent, tandis que leur rayon et leur masse diminuent en raison de l'évaporation. 
+          Nous observons également que les températures des gouttelettes s'ajustent à la température de l'air ambiant au fil du temps, 
+          influençant les taux de transfert de chaleur et d'humidité. Ces comportements affectent collectivement l'humidité relative dans l'écoulement local.
+        </p>
+        <p>
+          Ci-dessous quelques résultats visuels illustrant l'évaporation des gouttelettes, l'adéquation des vitesses, 
+          et l'évolution des températures au fil du temps :
+        </p>
+        <div class="images-grid">
+          <figure>
+            <img src="images/graph_vitesse_new.png" class="responsive-img" alt="Évolution de la Vitesse au Fil du Temps">
+            <figcaption>Résultat 1 : Évolution de la Vitesse au Fil du Temps</figcaption>
+          </figure>
+          <figure>
+            <img src="images/graph_rayon_new.png" alt="Diminution du Rayon et de la Masse Due à l'Évaporation" class="responsive-img">
+            <figcaption>Résultat 2 : Diminution du Rayon et de la Masse Due à l'Évaporation</figcaption>
+          </figure>
+          <figure>
+            <img src="images/temperature_new.png" alt="Équilibrage de la Température avec l'Air Ambiant" class="responsive-img">
+            <figcaption>Résultat 3 : Équilibrage de la Température avec l'Air Ambiant</figcaption>
+          </figure>
+        </div>
+        
+        <!-- Équation de l'Humidité Relative -->
+        <h3>Évolution de l'Humidité Relative</h3>
+        <div class="equation">
+          \[
+          \text{Humidité Relative} = \frac{\text{Concentration d'Eau dans l'Air}}{\text{Concentration d'Eau Maximale dans l'Air}}
+          \]
+        </div>
+        <div class="images-grid">
+          <figure>
+            <img src="images/humidite_new.png" alt="Humidité Relative en Fonction du Temps" class="responsive-img" 
+               style="width: 40%; display: block; margin: 0 auto;">
+            <figcaption>Humidité Relative en Fonction du Temps</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <h3>Résultats Analytiques de la Référence [1]</h3>
+      <div class="images-grid">
+        <figure>
+          <img src="images/temp_analy.png" alt="Analyse Température Analytique" class="responsive-img">
+          <figcaption>Analyse de la Température (Ref. [1])</figcaption>
+        </figure>
+        <figure>
+          <img src="images/vitesse_analy.png" alt="Analyse Vitesse Analytique" class="responsive-img">
+          <figcaption>Analyse de la Vitesse (Ref. [1])</figcaption>
+        </figure>
+        <figure>
+          <img src="images/humid_analy.png" alt="Analyse Humidité Analytique" class="responsive-img">
+          <figcaption>Analyse de l'Humidité (Ref. [1])</figcaption>
+        </figure>
+      </div>
+          
+      <!-- Résultats Numériques QMOM -->
+      <section id="qmom-results" class="section">
+        <h3>Résultats Numériques QMOM</h3>
+        <div class="images-grid">
+          <figure>
+            <img src="images/u_bar_time.png" alt="Évolution de la Vitesse au Fil du Temps (QMOM)" class="responsive-img">
+            <figcaption>Évolution de la Vitesse dans le Temps pour Différents Rayons (QMOM)</figcaption>
+          </figure>
+          <figure>
+            <img src="images/sol_2D_n.png" alt="Fonction \( \overline{n} \) en Fonction du Rayon et de la Température" class="responsive-img">
+            <figcaption>\(\overline{n}\) en Fonction du Rayon et de la Température</figcaption>
+          </figure>
+          <figure>
+            <img src="images/sol_2D_u.png" alt="Fonction \( \overline{u} \) en Fonction du Rayon et de la Température" class="responsive-img">
+            <figcaption>\(\overline{u}\) en Fonction du Rayon et de la Température</figcaption>
+          </figure>
+        </div>
+      </section>
     </section>
 
-    <p>
-      Le modèle eulérien, bien que théoriquement robuste, a révélé des défis computationnels significatifs lors de la tentative d'une discrétisation complète en 9D. Nous avons observé des pas de temps extrêmement petits (\(\Delta t \sim 10^{-12}\,s\)) pour maintenir la stabilité, rendant la résolution eulérienne complète prohibitive pour des simulations de plusieurs secondes ou minutes. Cela nous a conduits à envisager des modèles réduits (hypothèses en 1D ou 2D sur la vitesse) ou des méthodes de moments basées sur la quadrature (QMOM).
-    </p>
+    <section id="references" class="section">
+      <h2>Références</h2>
+      <ol>
+        <li id="ref-veron2020">
+          Veron, F., & Mieussens, L. (2020). Un modèle Eulerien pour le transport et l'évaporation des embruns marins. <em>Journal of Fluid Mechanics</em>, 897, A6. Cambridge University Press.
+        </li>
+        <li id="ref-murrone2011">
+          Murrone, A., & Villedieu, P. (2011). Modélisation numérique des écoulements deux phases dispersés. <em>Aerospace Lab</em>(2), p--1.
+        </li>
+        <li id="ref-desjardins2008">
+          Desjardins, O., Fox, R. O., & Villedieu, P. (2008). Une méthode des moments basée sur la quadrature pour les écoulements fluides-particule dilués. <em>Journal of Computational Physics</em>, 227(4), 2514--2539. Elsevier.
+        </li>
+      </ol>
+    </section>
     
     <!-- SECTION DÉPÔT GITHUB -->
     <section id="code" class="section">
       <h2>Dépôt GitHub</h2>
       <p>
-        L'ensemble du code pour ce projet de recherche, incluant les implémentations lagrangienne et eulérienne 
+        L'intégralité du code pour ce projet de recherche, incluant les implémentations Lagrangienne et Eulerienne 
         (ainsi que l'approche QMOM réduite), est disponible sur GitHub :
       </p>
       <a href="https://github.com/baahirham-MMK/Projet_embruns" 
          target="_blank" 
          class="btn">
-        Voir le Dépôt
+        Lagrangien 
       </a>
+      <a href="https://github.com/GitDeJulien/Eulerian_ocean_spray" 
+      target="_blank" 
+      class="btn">
+      Eulerien
+   </a>
     </section>
   </main>
   
-  <!-- FOOTER -->
+  <!-- PIED DE PAGE -->
   <footer class="footer">
     <div class="container footer-content">
       <p>&copy; 2024 Recherche en Mécanique des Fluides | Conçu à des fins académiques</p>
