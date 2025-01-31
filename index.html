@@ -34,7 +34,7 @@
         <li><a href="#theory">Theory</a></li>
         <li><a href="#lagrange">Lagrangian Model</a></li>
         <li><a href="#euler">Eulerian Model</a></li>
-        <li><a href="#results">Key Results</a></li>
+        <li><a href="#key-results">Key Results</a></li> <!-- Mise à jour du lien -->
         <li><a href="#code">GitHub Repository</a></li>
       </ul>
       
@@ -132,6 +132,31 @@
         la traînée, de l'évaporation et du transfert de chaleur. Numériquement, ces ODE peuvent être intégrées 
         avec des schémas explicites ou semi-implicites (par exemple, Euler ou des intégrateurs exponentiels).
       </p>
+      
+      <p>
+        For example, the equation governing the rate of change of the droplet's mass \( m_p(t) \) due to evaporation 
+        involves several interrelated thermodynamic and fluid properties. This equation illustrates the complexity of 
+        accurately modeling droplet dynamics:
+      </p>
+      
+      <div class="equation">
+        \[
+        \frac{dm_p(t)}{dt} = 
+        \frac{4 \pi r_p D_v^* M_w p_v^{\text{sat}}(T_{\text{air}})}{R T_{\text{air}}}
+        \times 
+        \left[
+          Q_{RH} - \frac{T_{\text{air}}}{T_p} 
+          \exp \left(
+            \frac{L_v M_w}{R} 
+            \left( \frac{1}{T_{\text{air}}} - \frac{1}{T_p} \right)
+          \right)
+          + \frac{2 M_w \Gamma_p}{R \rho_w r_p T_p}
+          - \frac{I \Phi_s m_s (M_w / M_s)}{m_p - m_s}
+        \right]
+        = \mathcal{M}(t).
+        \]
+      </div>
+      
       <div class="advantages-drawbacks">
         <strong>Avantages :</strong>
         <ul>
@@ -170,7 +195,7 @@
           <figcaption>Distribution of Radius</figcaption>
         </figure>
       </div>
-      
+    </section>
 
     <!-- SECTION EULERIAN -->
     <section id="euler" class="section">
@@ -192,9 +217,10 @@
         + \frac{\partial}{\partial T} (\mathcal{T} f) = 0.
         \]
       </div>
+      
       <p>
         Despite being elegant, this PDE is defined in a high-dimensional space (up to 9D if 
-        we consider \(\mathbf{x}\) and \(\mathbf{v}\) in 3D). Directly discretizing it with 
+        we consider \(\mathbf{x}\) et \(\mathbf{v}\) en 3D). Directly discretizing it with 
         finite volume methods often leads to prohibitive computational costs and stringent 
         CFL conditions, making naive Eulerian approaches impractical for long-time or 
         large-scale simulations.
@@ -251,11 +277,11 @@
       <!-- Distribution Images -->
       <div class="images-grid">
         <figure>
-          <img src="images/Eulerien/log.png" alt="Logarithmic Mesh Distribution" class="responsive-img">
+          <img src="images/log.png" alt="Logarithmic Mesh Distribution" class="responsive-img">
           <figcaption>Logarithmic Mesh Distribution</figcaption>
         </figure>
         <figure>
-          <img src="images/Eulerien/regulier.png" alt="Regular Mesh Distribution" class="responsive-img">
+          <img src="images/regulier.png" alt="Regular Mesh Distribution" class="responsive-img">
           <figcaption>Regular Mesh Distribution</figcaption>
         </figure>
       </div>
@@ -266,7 +292,6 @@
         \[
         \frac{f_{i,j,k,l}^{n+1} - f_{i,j,k,l}^{n}}{\Delta t} + \frac{\phi_{i+\frac{1}{2},j,k,l}^n - \phi_{i-\frac{1}{2},j,k,l}^n}{\Delta u} + \frac{\Phi_{i,j+\frac{1}{2},k,l}^n - \Phi_{i,j-\frac{1}{2},k,l}^n}{\Delta r_{j+\frac{1}{2}}} \\
         + \frac{\varphi_{i,j,k+\frac{1}{2},l}^n - \varphi_{i,j,k-\frac{1}{2},l}^n}{\Delta m_{k+\frac{1}{2}}} + \frac{\varPhi_{i,j,k,l+\frac{1}{2}}^n - \varPhi_{i,j,k,l-\frac{1}{2}}^n}{\Delta T} = 0.
-        \]
         \]
       </div>
       <p>
@@ -284,7 +309,6 @@
         \]
         \[
         \varPhi_{i,j,k,l+\frac{1}{2}}^n = \mathcal{T}^+\left(u_i, r_j, m_k, T_{l+\frac{1}{2}}\right)f_{i,j,k,l}^n + \mathcal{T}^-\left(u_i, r_j, m_k, T_{l-\frac{1}{2}}\right)f_{i,j,k,l+1}^n.
-        \]
         \]
       </div>
       <div class="equation">
@@ -307,7 +331,7 @@
         \[
             \Delta t \leq \min_{Q}\left( \frac{\Delta Q}{\max|V_Q|}\right),
         \]
-        where \( Q = v,\;r,\;m \) or \( T \) and \( V_Q = \frac{\mathcal{F}}{m},\;\mathcal{R},\; \mathcal{M} \) or \( \mathcal{T} \).
+        where \( Q = v,\;r,\;m \) or \( T \) and \( V_Q = \frac{\mathcal{F}}{m},\;\mathcal{R},\; \mathcal{M} \) ou \( \mathcal{T} \).
       </p>
       
       <!-- Initialization Equation -->
@@ -343,23 +367,24 @@
         \[
         f(t,v,r,T) = \overline{n}(t,r,T)\delta_{v-\overline{u}}
         \]
-        where \( \overline{n} = \overline{n}(t,r,T) \) and \( \overline{u} = \overline{u}(t,r,T) \) are the unknowns of the new system.
+        where \( \overline{n} = \overline{n}(t,r,T) \) et \( \overline{u} = \overline{u}(t,r,T) \) sont les inconnues du nouveau système.
       </p>
       
       <!-- System of Equations -->
       <h4>System of Equations</h4>
       <div class="equation">
         \[
-            \begin{array}{c @{=} c}
-            \text{\underline{$0^{th}$ order}: } \int_{\mathbb{R}}f(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=1}{\int_{\mathbb{R}}\delta_{v-\overline{u}}}dv \\
-            \text{\underline{$1^{st}$ order ($v$)}: } \int_{\mathbb{R}}vf(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=\overline{u}(t,r,T)}{\int_{\mathbb{R}}v\delta_{v-\overline{u}}}dv \\
-            \text{\underline{$1^{st}$ order ($T$)}: } \int_{\mathbb{R}}Tf(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=\overline{\Theta}(t,r,T)}{\int_{\mathbb{R}}T\delta_{v-\overline{u}}}dv
-            \end{array}
+        \begin{array}{c @{=} c}
+        \underline{\text{$0^{th}$ order: }} \int_{\mathbb{R}}f(t,v,r,T)dv  =  \overline{n}(t,r,T)\cancelto{=1}{\int_{\mathbb{R}}\delta_{v-\overline{u}}}dv \\
+        \underline{\text{$1^{st}$ order ($v$): }} \int_{\mathbb{R}}vf(t,v,r,T)dv =  \overline{n}(t,r,T)\cancelto{=\overline{u}(t,r,T)}{\int_{\mathbb{R}}v\delta_{v-\overline{u}}}dv \\
+        \underline{\text{$1^{st}$ order ($T$): }} \int_{\mathbb{R}}Tf(t,v,r,T)dv = \overline{n}(t,r,T)\cancelto{=\overline{\Theta}(t,r,T)}{\int_{\mathbb{R}}T\delta_{v-\overline{u}}}dv
+        \end{array}
         \]
       </div>
-      
+       
+
       <p>
-        Integration of \eqref{eq:first_QMOM} with $0^{th}$ and $1^{st}$ order moments gave the following system:
+        Integration with 0 and 1 order moments gave the following system:
       </p>
       <div class="equation">
         \[
@@ -371,7 +396,7 @@
         \]
       </div>
       <p>
-        where \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) and \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
+        where \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) et \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
       </p>
       
       <!-- Resolution by Splitting Method -->
@@ -385,20 +410,20 @@
         \[
         \left \{
             \begin{array}{c @{ = } c}
-                 \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) & 0 ~~~~~\longrightarrow \overline{n}^{*}  \\
-                 \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) & 0 ~~~~~\longrightarrow \overline{u}^{*}
+                 \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) = 0 ~~~~~\longrightarrow \overline{n}^{*}  \\
+                 \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) = 0 ~~~~~\longrightarrow \overline{u}^{*}
             \end{array}
             \right.
         \]
         \[
         \left \{
             \begin{array}{c @{ = } c}
-                 \partial_t \overline{n}^{*} + \partial_T \left( \overline{T}\overline{n}^{*} \right) & 0 ~~~~~\longrightarrow \overline{n}^{**}  \\
-                 \partial_t \overline{u}^{*} + \partial_T \left( \overline{T}\overline{u}^{*} \right) & 0 ~~~~~\longrightarrow \overline{u}^{**}
+                 \partial_t \overline{n}^{*} + \partial_T \left( \overline{T}\overline{n}^{*} \right) = 0 ~~~~~\longrightarrow \overline{n}^{**}  \\
+                 \partial_t \overline{u}^{*} + \partial_T \left( \overline{T}\overline{u}^{*} \right) = 0 ~~~~~\longrightarrow \overline{u}^{**}
             \end{array}
             \right.
         \]
-        \]
+    
       </div>
       
       <h5>Relaxation</h5>
@@ -406,12 +431,12 @@
         \[
         \left \{
             \begin{array}{c @{ = } l}
-                 \partial_t \overline{n}^{**} & 0  \\
-                 \partial_t \overline{u}^{**} & \frac{1}{\tau}(u_{\text{air}} - \overline{u})
+                 \partial_t \overline{n}^{**} = 0  \\
+                 \partial_t \overline{u}^{**} = \frac{1}{\tau}(u_{\text{air}} - \overline{u})
             \end{array}
             \right.
         \]
-        \]
+        
       </div>
       
       <!-- QMOM Numerical Scheme -->
@@ -425,12 +450,12 @@
         \[
         \left \{
             \begin{array}{c @{ = } c}
-                 \overline{n}_i^{*} & \overline{n}_i^n - \frac{\Delta t}{\Delta r_i} \left( \Phi_{i+\frac{1}{2}}^n - \Phi_{i-\frac{1}{2}}^n \right), \\
-                 \Phi_{i+\frac{1}{2}}^n & \left( \overline{R}_{i+\frac{1}{2}}^n \right)^+\overline{n}_i^n + \left( \overline{R}_{i+\frac{1}{2}}^n \right)^-\overline{n}_{i+1}^n
+                 \overline{n}_i^{*} = \overline{n}_i^n - \frac{\Delta t}{\Delta r_i} \left( \Phi_{i+\frac{1}{2}}^n - \Phi_{i-\frac{1}{2}}^n \right), \\
+                 \Phi_{i+\frac{1}{2}}^n = \left( \overline{R}_{i+\frac{1}{2}}^n \right)^+\overline{n}_i^n + \left( \overline{R}_{i+\frac{1}{2}}^n \right)^-\overline{n}_{i+1}^n
             \end{array}
             \right.
         \]
-        \]
+        
       </div>
       
       <h6>Upwind Scheme on \( T \)</h6>
@@ -438,12 +463,12 @@
         \[
         \left \{
             \begin{array}{c @{ = } c}
-                 \overline{n}_j^{**} & \overline{n}_j^{*} - \frac{\Delta t}{\Delta T_j} \left( \Phi_{j+\frac{1}{2}}^* - \Phi_{j-\frac{1}{2}}^* \right), \\
-                 \Phi_{j+\frac{1}{2}}^* & \left( \overline{T}_{j+\frac{1}{2}}^n \right)^+\overline{n}_j^{*} + \left( \overline{T}_{j+\frac{1}{2}}^n \right)^-\overline{n}_{j+1}^{*}
+                 \overline{n}_j^{**} = \overline{n}_j^{*} - \frac{\Delta t}{\Delta T_j} \left( \Phi_{j+\frac{1}{2}}^* - \Phi_{j-\frac{1}{2}}^* \right), \\
+                 \Phi_{j+\frac{1}{2}}^* = \left( \overline{T}_{j+\frac{1}{2}}^n \right)^+\overline{n}_j^{*} + \left( \overline{T}_{j+\frac{1}{2}}^n \right)^-\overline{n}_{j+1}^{*}
             \end{array}
             \right.
         \]
-        \]
+        
       </div>
       
       <h6>Source Term Resolution</h6>
@@ -451,302 +476,161 @@
         \[
         \left \{
             \begin{array}{c @{ = } l}
-                 \overline{n}_{ij}^{n+1} & \overline{n}_{ij}^{**}, \\
-                 \overline{u}_{ij}^{n+1} & \left( 1 - e^{-\frac{\Delta t}{\tau}} \right)u_{\text{air}} + e^{-\frac{\Delta t}{\tau}}\overline{u}_{ij}^{**}
+                 \overline{n}_{ij}^{n+1} = \overline{n}_{ij}^{**}, \\
+                 \overline{u}_{ij}^{n+1} = \left( 1 - e^{-\frac{\Delta t}{\tau}} \right)u_{\text{air}} + e^{-\frac{\Delta t}{\tau}}\overline{u}_{ij}^{**}
             \end{array}
             \right.
         \]
-        \]
-      </div>
-      
-      <!-- QMOM Numerical Results -->
-      <h4>QMOM Numerical Results</h4>
-      <div class="images-grid">
-        <figure>
-          <img src="images/QMOM/u_bar_time.png" alt="Velocity Evolution over Time" class="responsive-img">
-          <figcaption>Velocity Evolution in Time for Different Radii (QMOM)</figcaption>
-        </figure>
-        <figure>
-          <img src="images/QMOM/sol_2D_n.png" alt="n Function of Radius and Temperature" class="responsive-img">
-          <figcaption>\(\overline{n}\) Function of Radius and Temperature</figcaption>
-        </figure>
-        <figure>
-          <img src="images/QMOM/sol_2D_u.png" alt="u Function of Radius and Temperature" class="responsive-img">
-          <figcaption>\(\overline{u}\) Function of Radius and Temperature</figcaption>
-        </figure>
+        
       </div>
     </section>
     
-    <!-- SECTION LAGRANGIAN MODEL DETAILS -->
-    <section id="lagrangian-details" class="section">
-      <h2>Lagrangian Model Details</h2>
-      <p>
-        The Lagrangian model was implemented using both CPU and GPU approaches to handle large-scale simulations efficiently.
-      </p>
-      
-      <!-- Parallel Implementation Details -->
-      <h3>Parallel Implementation of Large-Scale Spray Simulation</h3>
-      <div class="equation">
-        \[
-        \begin{cases}
-            \text{Total simulation volume: } 1 \, \text{m}^3, \\
-            \text{Approximately } 10^6 \text{ droplets distributed across } N_p \text{ processors}, \\
-            \text{Mass-based initialization: } M_{\text{tot}} = \rho_0 L^3, \\
-            \text{Each process generated droplets until: } M_n \geq M_{\text{tot}}.
-        \end{cases}
-        \]
-      </div>
-      
-      <!-- Droplet Generation Method -->
-      <h3>Droplet Generation Method</h3>
-      <p>
-        The droplets were generated using the acceptance-rejection method for radius distribution within the size range:
-        \[
-        [10^{-6}, 10^{-3}] \, \text{m}
-        \]
-      </p>
-      
-      <!-- MPI Communication Pattern -->
-      <h3>MPI Communication Pattern</h3>
-      <p>
-        Global properties were synchronized using \texttt{MPI\_Allreduce}:
-        \[
-            M_n = \sum_{i=1}^{N_p} m_{p,i}, \quad U_n = \sum_{i=1}^{N_p} (m_p v_p)_i, \quad T_n = \sum_{i=1}^{N_p} (m_p T_p)_i.
-        \]
-      </p>
-      
-      <!-- Performance Tables and Details -->
-      <h3>Performance and Implementation Details</h3>
-      <div class="images-grid">
-        <figure>
-          <img src="images/Lagrangien/particule/climate.png" alt="Impact on Climate Events" class="responsive-img">
-          <figcaption>Impact on Climate Events</figcaption>
-        </figure>
-        <figure>
-          <img src="images/Lagrangien/particule/storms.png" alt="Storm and Cyclone" class="responsive-img">
-          <figcaption>Storm and Cyclone</figcaption>
-        </figure>
-        <figure>
-          <img src="images/Lagrangien/particule/weather.png" alt="Weather Forecasting" class="responsive-img">
-          <figcaption>Weather Forecasting</figcaption>
-        </figure>
-      </div>
-    </section>
-    
-    <!-- SECTION RESULTS -->
-    <section id="results" class="section">
+    <!-- SECTION KEY RESULTS -->
+    <section id="key-results" class="section">
       <h2>Key Results</h2>
-      <p>
-        In our numerical tests, the Lagrangian model confirms that droplets accelerate 
-        towards the wind velocity, while their radius and mass decrease due to evaporation. 
-        We also observe that droplet temperatures adjust to ambient air temperature over time, 
-        influencing heat and moisture transfer rates. These behaviors collectively affect the 
-        relative humidity in the local flow.
-      </p>
-      <p>
-        Below are a few visual results exemplifying the droplet evaporation, velocity matching, 
-        and temperature evolution over time:
-      </p>
-      <div class="images-grid">
-        <figure>
-          <img src="images/graph_vitesse_new.png" alt="Simulation result 1" class="responsive-img">
-          <figcaption>Result 1: Velocity evolution over time</figcaption>
-        </figure>
-        <figure>
-          <img src="images/graph_rayon_new.png" alt="Simulation result 2" class="responsive-img">
-          <figcaption>Result 2: Radius and mass decrease due to evaporation</figcaption>
-        </figure>
-        <figure>
-          <img src="images/temperature_new.png" alt="Simulation result 3" class="responsive-img">
-          <figcaption>Result 3: Temperature equilibration with ambient air</figcaption>
-        </figure>
-      </div>
       
-      <!-- Additional Results Images -->
-      <div class="images-grid">
-        <figure>
-          <img src="images/Lagrangien/spray/graph_vitesse_spray_new.png" alt="Averaged Velocity" class="responsive-img">
-          <figcaption>Averaged Velocity as a Function of Time</figcaption>
-        </figure>
-        <figure>
-          <img src="images/Lagrangien/spray/temperature_spray_new.png" alt="Averaged Temperature" class="responsive-img">
-          <figcaption>Averaged Temperature as a Function of Time</figcaption>
-        </figure>
-      </div>
-      
-      <!-- Relative Humidity Equation -->
-      <h3>Relative Humidity Evolution</h3>
-      <div class="equation">
-        \[
-        \text{Relative Humidity} = \frac{\text{Water Concentration in Air}}{\text{Water Concentration in Air Maximum}}
-        \]
-      </div>
-      <div class="images-grid">
-        <figure>
-          <img src="images/Lagrangien/spray/humidite_new.png" alt="Relative Humidity" class="responsive-img">
-          <figcaption>Relative Humidity as a Function of Time</figcaption>
-        </figure>
-      </div>
+      <!-- SECTION RESULTS -->
+      <section id="results" class="section">
+        <h3>Lagrangian Approch</h3>
+        <p>
+          The Lagrangian model was implemented using both CPU and GPU approaches to handle large-scale simulations efficiently.
+        </p>
+        
+        <!-- Parallel Implementation Details -->
+        <h3>Parallel Implementation of Large-Scale Spray Simulation</h3>
+        <div class="equation">
+          \[
+          \begin{cases}
+              \text{Total simulation volume: } 1 \, \text{m}^3, \\
+              \text{Approximately } 10^6 \text{ droplets distributed across } N_p \text{ processors}, \\
+              \text{Mass-based initialization: } M_{\text{tot}} = \rho_0 L^3, \\
+              \text{Each process generates droplets until: } M_n \geq M_{\text{tot}}.
+          \end{cases}
+          \]
+        </div>
+        
+        <!-- Droplet Generation Method -->
+        <h3>Droplet Generation Method</h3>
+        <p>
+          The droplets were generated using the acceptance-rejection method for radius distribution within the size range:
+          \[
+          [10^{-6}, 10^{-3}] \, \text{m}
+          \]
+        </p>
+        
+        <!-- MPI Communication Pattern -->
+        <h3>MPI Communication Pattern</h3>
+        <p>
+          Global properties were synchronized using <code>MPI_Allreduce</code>:
+          \[
+              M_n = \sum_{i=1}^{N_p} m_{p,i}, \quad U_n = \sum_{i=1}^{N_p} (m_p v_p)_i, \quad T_n = \sum_{i=1}^{N_p} (m_p T_p)_i.
+          \]
+        </p>
+    
+        <h3>Lagrangian Method</h3>
+        <p>
+          In our numerical tests, the Lagrangian model confirms that droplets accelerate 
+          towards the wind velocity, while their radius and mass decrease due to evaporation. 
+          We also observe that droplet temperatures adjust to ambient air temperature over time, 
+          influencing heat and moisture transfer rates. These behaviors collectively affect the 
+          relative humidity in the local flow.
+        </p>
+        <p>
+          Below are a few visual results exemplifying the droplet evaporation, velocity matching, 
+          and temperature evolution over time:
+        </p>
+        <div class="images-grid">
+          <figure>
+            <img src="images/graph_vitesse_new.png" class="responsive-img">
+            <figcaption>Result 1: Velocity evolution over time</figcaption>
+          </figure>
+          <figure>
+            <img src="images/graph_rayon_new.png" alt="Radius and mass decrease due to evaporation" class="responsive-img">
+            <figcaption>Result 2: Radius and mass decrease due to evaporation</figcaption>
+          </figure>
+          <figure>
+            <img src="images/temperature_new.png" alt="Temperature equilibration with ambient air" class="responsive-img">
+            <figcaption>Result 3: Temperature equilibration with ambient air</figcaption>
+          </figure>
+        </div>
+        
+        <!-- Additional Results Images
+        <div class="images-grid">
+          <figure>
+            <img src="images/graph_vitesse_spray_new.png" alt="Averaged Velocity as a Function of Time" class="responsive-img">
+            <figcaption>Averaged Velocity as a Function of Time</figcaption>
+          </figure>
+          <figure>
+            <img src="images/temperature_spray_new.png" alt="Averaged Temperature as a Function of Time" class="responsive-img">
+            <figcaption>Averaged Temperature as a Function of Time</figcaption>
+          </figure>
+        </div> -->
+        
+        <!-- Relative Humidity Equation -->
+        <h3>Relative Humidity Evolution</h3>
+        <div class="equation">
+          \[
+          \text{Relative Humidity} = \frac{\text{Water Concentration in Air}}{\text{Water Concentration in Air Maximum}}
+          \]
+        </div>
+        <div class="images-grid">
+          <figure>
+            <img src="images/humidite_new.png" alt="Relative Humidity as a Function of Time" class="responsive-img" 
+               style="width: 40%; display: block; margin: 0 auto;">
+            <figcaption>Relative Humidity as a Function of Time</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <h3>Analytic Results from Reference [1]</h3>
+<div class="images-grid">
+  <figure>
+    <img src="images/temp_analy.png" alt="Analytic Temperature Analysis" class="responsive-img">
+    <figcaption>Temperature Analysis (Ref. [1])</figcaption>
+  </figure>
+  <figure>
+    <img src="images/vitesse_analy.png" alt="Analytic Velocity Analysis" class="responsive-img">
+    <figcaption>Velocity Analysis (Ref. [1])</figcaption>
+  </figure>
+  <figure>
+    <img src="images/humid_analy.png" alt="Analytic Humidity Analysis" class="responsive-img">
+    <figcaption>Humidity Analysis (Ref. [1])</figcaption>
+  </figure>
+</div>
+    
+      <!-- QMOM Numerical Results -->
+      <section id="qmom-results" class="section">
+        <h3>QMOM Numerical Results</h3>
+        <div class="images-grid">
+          <figure>
+            <img src="images/u_bar_time.png" alt="Velocity Evolution over Time (QMOM)" class="responsive-img">
+            <figcaption>Velocity Evolution in Time for Different Radii (QMOM)</figcaption>
+          </figure>
+          <figure>
+            <img src="images/sol_2D_n.png" alt="n Function of Radius and Temperature" class="responsive-img">
+            <figcaption>\(\overline{n}\) Function of Radius and Temperature</figcaption>
+          </figure>
+          <figure>
+            <img src="images/sol_2D_u.png" alt="u Function of Radius and Temperature" class="responsive-img">
+            <figcaption>\(\overline{u}\) Function of Radius and Temperature</figcaption>
+          </figure>
+        </div>
+      </section>
     </section>
 
-    <!-- SECTION QMOM STRATEGY -->
-    <section id="qmom" class="section">
-      <h2>QMOM Strategy</h2>
-      <p>
-        The Quadrature Method of Moments (QMOM) was implemented to reduce the computational complexity of the Eulerian model by tracking a limited number of moments of the droplet distribution.
-      </p>
-      
-      <!-- Presentation of QMOM Strategy -->
-      <h3>Presentation of the Strategy</h3>
-      <p>
-        The William-Boltzmann equation:
-      </p>
-      <div class="equation">
-        \[
-            \frac{\partial }{\partial t}f + \frac{\partial}{\partial u} \left(\frac{\mathcal{F}}{m}f\right) + \frac{\partial }{\partial r}\left(\mathcal{R}f\right) + \frac{\partial }{\partial T}(\mathcal{T}f) = 0
-            \label{eq:first_QMOM}
-        \]
-      </div>
-      <p>
-        where \( m = m(r) \).
-      </p>
-      <p>
-        We looked for a solution as: 
-        \[
-        f(t,v,r,T) = \overline{n}(t,r,T)\delta_{v-\overline{u}}
-        \]
-        where \( \overline{n} = \overline{n}(t,r,T) \) and \( \overline{u} = \overline{u}(t,r,T) \) are the unknowns of the new system.
-      </p>
-      
-      <!-- System of Equations -->
-      <h4>System of Equations</h4>
-      <div class="equation">
-        \[
-            \begin{array}{c @{=} c}
-            \text{\underline{$0^{th}$ order}: } \int_{\mathbb{R}}f(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=1}{\int_{\mathbb{R}}\delta_{v-\overline{u}}}dv \\
-            \text{\underline{$1^{st}$ order ($v$)}: } \int_{\mathbb{R}}vf(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=\overline{u}(t,r,T)}{\int_{\mathbb{R}}v\delta_{v-\overline{u}}}dv \\
-            \text{\underline{$1^{st}$ order ($T$)}: } \int_{\mathbb{R}}Tf(t,v,r,T)dv & \overline{n}(t,r,T)\cancelto{=\overline{\Theta}(t,r,T)}{\int_{\mathbb{R}}T\delta_{v-\overline{u}}}dv
-            \end{array}
-        \]
-      </div>
-      
-      <p>
-        Integration of \eqref{eq:first_QMOM} with $0^{th}$ and $1^{st}$ order moments gave the following system:
-      </p>
-      <div class="equation">
-        \[
-        \begin{cases}
-            \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) + \partial_T \left( \overline{T}\overline{n} \right) = 0, \\
-            \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) + \partial_T \left( \overline{T}\overline{u} \right) = \frac{1}{\tau}(u_{\text{air}} - \overline{u}).
-        \end{cases}
-        \]
-        \]
-      </div>
-      <p>
-        where \( \overline{R} = \mathcal{R}(t,r,T)|_{v=\overline{u}} \) and \( \overline{T} = \mathcal{T}(t,r,T)|_{v=\overline{u}} \).
-      </p>
-      
-      <!-- Resolution by Splitting Method -->
-      <h4>Resolution by Splitting Method</h4>
-      <p>
-        The system is resolved using a splitting method, handling transport and relaxation separately:
-      </p>
-      
-      <h5>Transport on \( r \) and \( T \)</h5>
-      <div class="equation">
-        \[
-        \left \{
-            \begin{array}{c @{ = } c}
-                 \partial_t \overline{n} + \partial_r \left( \overline{R}\overline{n} \right) & 0 ~~~~~\longrightarrow \overline{n}^{*}  \\
-                 \partial_t \overline{u} + \partial_r \left( \overline{R}\overline{u} \right) & 0 ~~~~~\longrightarrow \overline{u}^{*}
-            \end{array}
-            \right.
-        \]
-        \[
-        \left \{
-            \begin{array}{c @{ = } c}
-                 \partial_t \overline{n}^{*} + \partial_T \left( \overline{T}\overline{n}^{*} \right) & 0 ~~~~~\longrightarrow \overline{n}^{**}  \\
-                 \partial_t \overline{u}^{*} + \partial_T \left( \overline{T}\overline{u}^{*} \right) & 0 ~~~~~\longrightarrow \overline{u}^{**}
-            \end{array}
-            \right.
-        \]
-        \]
-      </div>
-      
-      <h5>Relaxation</h5>
-      <div class="equation">
-        \[
-        \left \{
-            \begin{array}{c @{ = } l}
-                 \partial_t \overline{n}^{**} & 0  \\
-                 \partial_t \overline{u}^{**} & \frac{1}{\tau}(u_{\text{air}} - \overline{u})
-            \end{array}
-            \right.
-        \]
-        \]
-      </div>
-      
-      <!-- QMOM Numerical Scheme -->
-      <h5>Numerical Scheme</h5>
-      <p>
-        The QMOM system is solved using an upwind scheme for transport directions and explicit handling of source terms:
-      </p>
-      
-      <h6>Upwind Scheme on \( r \)</h6>
-      <div class="equation">
-        \[
-        \left \{
-            \begin{array}{c @{ = } c}
-                 \overline{n}_i^{*} & \overline{n}_i^n - \frac{\Delta t}{\Delta r_i} \left( \Phi_{i+\frac{1}{2}}^n - \Phi_{i-\frac{1}{2}}^n \right), \\
-                 \Phi_{i+\frac{1}{2}}^n & \left( \overline{R}_{i+\frac{1}{2}}^n \right)^+\overline{n}_i^n + \left( \overline{R}_{i+\frac{1}{2}}^n \right)^-\overline{n}_{i+1}^n
-            \end{array}
-            \right.
-        \]
-        \]
-      </div>
-      
-      <h6>Upwind Scheme on \( T \)</h6>
-      <div class="equation">
-        \[
-        \left \{
-            \begin{array}{c @{ = } c}
-                 \overline{n}_j^{**} & \overline{n}_j^{*} - \frac{\Delta t}{\Delta T_j} \left( \Phi_{j+\frac{1}{2}}^* - \Phi_{j-\frac{1}{2}}^* \right), \\
-                 \Phi_{j+\frac{1}{2}}^* & \left( \overline{T}_{j+\frac{1}{2}}^n \right)^+\overline{n}_j^{*} + \left( \overline{T}_{j+\frac{1}{2}}^n \right)^-\overline{n}_{j+1}^{*}
-            \end{array}
-            \right.
-        \]
-        \]
-      </div>
-      
-      <h6>Source Term Resolution</h6>
-      <div class="equation">
-        \[
-        \left \{
-            \begin{array}{c @{ = } l}
-                 \overline{n}_{ij}^{n+1} & \overline{n}_{ij}^{**}, \\
-                 \overline{u}_{ij}^{n+1} & \left( 1 - e^{-\frac{\Delta t}{\tau}} \right)u_{\text{air}} + e^{-\frac{\Delta t}{\tau}}\overline{u}_{ij}^{**}
-            \end{array}
-            \right.
-        \]
-        \]
-      </div>
-      
-      <!-- QMOM Numerical Results -->
-      <h4>QMOM Numerical Results</h4>
-      <div class="images-grid">
-        <figure>
-          <img src="images/QMOM/u_bar_time.png" alt="Velocity Evolution over Time" class="responsive-img">
-          <figcaption>Velocity Evolution in Time for Different Radii (QMOM)</figcaption>
-        </figure>
-        <figure>
-          <img src="images/QMOM/sol_2D_n.png" alt="n Function of Radius and Temperature" class="responsive-img">
-          <figcaption>\(\overline{n}\) Function of Radius and Temperature</figcaption>
-        </figure>
-        <figure>
-          <img src="images/QMOM/sol_2D_u.png" alt="u Function of Radius and Temperature" class="responsive-img">
-          <figcaption>\(\overline{u}\) Function of Radius and Temperature</figcaption>
-        </figure>
-      </div>
+    <section id="references" class="section">
+      <h2>Références</h2>
+      <ol>
+        <li id="ref-veron2020">
+          Veron, F., & Mieussens, L. (2020). An Eulerian model for sea spray transport and evaporation. <em>Journal of Fluid Mechanics</em>, 897, A6. Cambridge University Press.
+        </li>
+        <li id="ref-murrone2011">
+          Murrone, A., & Villedieu, P. (2011). Numerical modeling of dispersed two-phase flows. <em>Aerospace Lab</em>(2), p--1.
+        </li>
+        <li id="ref-desjardins2008">
+          Desjardins, O., Fox, R. O., & Villedieu, P. (2008). A quadrature-based moment method for dilute fluid-particle flows. <em>Journal of Computational Physics</em>, 227(4), 2514--2539. Elsevier.
+        </li>
+      </ol>
     </section>
     
     <!-- SECTION GITHUB REPO -->
@@ -759,8 +643,13 @@
       <a href="https://github.com/baahirham-MMK/Projet_embruns" 
          target="_blank" 
          class="btn">
-        View Repository
+        Lagrangian 
       </a>
+      <a href="https://github.com/GitDeJulien/Eulerian_ocean_spray" 
+      target="_blank" 
+      class="btn">
+      Eulerian
+   </a>
     </section>
   </main>
   
